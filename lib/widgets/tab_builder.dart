@@ -49,7 +49,7 @@ class TabBuilder extends StatelessWidget {
                       return const FadeShimmer(
                         width: 180,
                         height: 250,
-                        highlightColor: Color(0xff22272f),
+                        highlightColor: Color.fromARGB(255, 238, 0, 0),
                         baseColor: Color(0xff20252d),
                       );
                     },
