@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                     )),
             ),
             DefaultTabController(
-              length: 4,
+              length: 3,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -79,29 +79,24 @@ class HomeScreen extends StatelessWidget {
                       ),
                       labelStyle: TextStyle(fontSize: 11.0), 
                       tabs: [
-                        Tab(text: 'Now playing'),
-                        Tab(text: 'Upcoming'),
-                        Tab(text: 'Top rated'),
-                        Tab(text: 'Popular'),
+                        Tab(text: 'first podium'),
+                        Tab(text: 'second podium'),
+                        Tab(text: 'third podium'),
                       ]),
                   SizedBox(
                     height: 400,
                     child: TabBarView(children: [
                       TabBuilder(
                         future: ApiService.getCustomActors(//eran el de pelis
-                            'now_playing?api_key=${Api.apiKey}&language=en-US&page=1'),
+                            '&page=1'),
                       ),
                       TabBuilder(
                         future: ApiService.getCustomActors(//eran el de pelis
-                            'upcoming?api_key=${Api.apiKey}&language=en-US&page=1'),
+                            '&page=2'),
                       ),
                       TabBuilder(
                         future: ApiService.getCustomActors(//eran el de pelis
-                            'top_rated?api_key=${Api.apiKey}&language=en-US&page=1'),
-                      ),
-                      TabBuilder(
-                        future: ApiService.getCustomActors(//eran el de pelis
-                            'popular?api_key=${Api.apiKey}&language=en-US&page=1'),
+                            '&page=3'),
                       ),
                     ]),
                   ),

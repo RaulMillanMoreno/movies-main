@@ -61,7 +61,7 @@ class ApiService {
     List<Actor> movies = [];
     try {
       http.Response response =
-          await http.get(Uri.parse('${Api.baseUrl}movie/$url'));
+          await http.get(Uri.parse('${Api.baseUrl}person/popular?language=en-US&api_key=${Api.apiKey}${url}'));
       var res = jsonDecode(response.body);
       res['results'].take(6).forEach(
             (m) => movies.add(
