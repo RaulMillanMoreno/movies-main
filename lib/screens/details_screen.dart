@@ -86,7 +86,7 @@ class DetailsScreen extends StatelessWidget {
                         bottomRight: Radius.circular(16),
                       ),
                       child: Image.network(
-                        Api.imageBaseUrl + movie.backdropPath,
+                        Api.imageBaseUrl + movie.originalname,
                         width: Get.width,
                         height: 250,
                         fit: BoxFit.cover,
@@ -116,20 +116,26 @@ class DetailsScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
                           child: Image.network(
-                            'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+                            'https://image.tmdb.org/t/p/w500${movie.profilePath}',
                             width: 110,
                             height: 140,
                             fit: BoxFit.cover,
-                            loadingBuilder: (_, __, ___) {
-                              // ignore: no_wildcard_variable_uses
-                              if (___ == null) return __;
-                              return const FadeShimmer(
-                                width: 110,
-                                height: 140,
-                                highlightColor: Color(0xff22272f),
-                                baseColor: Color(0xff20252d),
-                              );
+                            loadingBuilder: (_, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child; // La imagen se ha cargado completamente
+                              } else {
+                                return const FadeShimmer(
+                                  width: 110,
+                                  height: 140,
+                                  highlightColor: Color(0xff22272f),
+                                  baseColor: Color(0xff20252d),
+                                ); // Imagen aún cargando
+                              }
                             },
+                            errorBuilder: (_, __, ___) => const Icon(
+                              Icons.error,
+                              size: 120,
+                            ),
                           ),
                         ),
                       ),
@@ -140,7 +146,7 @@ class DetailsScreen extends StatelessWidget {
                       child: SizedBox(
                         width: 230,
                         child: Text(
-                          movie.title,
+                          movie.name,
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -165,9 +171,9 @@ class DetailsScreen extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              movie.voteAverage == 0.0
+                              movie.gender == 0.0
                                   ? 'N/A'
-                                  : movie.voteAverage.toString(),
+                                  : movie.gender.toString(),
                               style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFFFF8700),
@@ -197,7 +203,7 @@ class DetailsScreen extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            movie.releaseDate.split('-')[0],
+                            movie.gender.toString(),//.split('-')[0],
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 10,
@@ -213,7 +219,8 @@ class DetailsScreen extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            Utils.getGenres(movie),
+                            // Utils.getGenres(movie),
+                            "esto es la parte de los utils",
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 10,
@@ -250,7 +257,7 @@ class DetailsScreen extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 20),
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              movie.overview,
+                              movie.knowdepartment,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontSize: 20,

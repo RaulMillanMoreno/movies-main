@@ -1,35 +1,35 @@
 import 'dart:convert';
 
-class Actor {
+class Actor {// se cambian las diferentes variables para que se obtengan los datos de los actores.
   int id;
-  String title;
-  String posterPath;
-  String backdropPath;
-  String overview;
-  String releaseDate;
-  double voteAverage;
-  List<int> genreIds;
+  String name;
+  String profilePath;
+  String originalname;
+  String knowdepartment;
+  int gender;
+  double popularity;
+  // List<int> genreIds;
   Actor({
     required this.id,
-    required this.title,
-    required this.posterPath,
-    required this.backdropPath,
-    required this.overview,
-    required this.releaseDate,
-    required this.voteAverage,
-    required this.genreIds,
+    required this.name,
+    required this.profilePath,
+    required this.originalname,
+    required this.knowdepartment, // era el overview
+    required this.gender,
+    required this.popularity,
+    // required this.genreIds,
   });
 
   factory Actor.fromMap(Map<String, dynamic> map) {
     return Actor(
       id: map['id'] as int,
-      title: map['title'] ?? '',
-      posterPath: map['poster_path'] ?? '',
-      backdropPath: map['backdrop_path'] ?? '',
-      overview: map['overview'] ?? '',
-      releaseDate: map['release_date'] ?? '',
-      voteAverage: map['vote_average']?.toDouble() ?? 0.0,
-      genreIds: List<int>.from(map['genre_ids']),
+      name: map['name'] ?? '',
+      profilePath: map['profile_path'] ?? '',
+      originalname: map['original_name'] ?? '',
+      knowdepartment: map['known_for_department'] ?? '', // era el overview.
+      gender: map['gender'] ?? '',
+      popularity: map['popularity']?.toDouble() ?? 0.0,
+      // genreIds: List<int>.from(map['genre_ids']),
     );
   }
 

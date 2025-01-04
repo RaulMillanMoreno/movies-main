@@ -18,7 +18,7 @@ class Infos extends StatelessWidget {
           SizedBox(
             width: 200,
             child: Text(
-              movie.title,
+              movie.name,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
@@ -36,9 +36,9 @@ class Infos extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    movie.voteAverage == 0.0
+                    movie.popularity == 0.0
                         ? 'N/A'
-                        : movie.voteAverage.toString(),
+                        : movie.popularity.toString(),
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w200,
@@ -54,7 +54,8 @@ class Infos extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    Utils.getGenres(movie),
+                    // Utils.getGenres(movie),
+                    "esta es la parte de utils 2",
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w200,
@@ -69,7 +70,7 @@ class Infos extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    movie.releaseDate.split('-')[0],
+                    movie.gender.toString(), //.split('-')[0],
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w200,
