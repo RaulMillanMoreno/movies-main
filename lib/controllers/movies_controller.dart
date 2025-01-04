@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 import 'package:movies/api/api_service.dart';
+import 'package:movies/models/actor.dart';
 import 'package:movies/models/movie.dart';
 
 class MoviesController extends GetxController {
   var isLoading = false.obs;
-  var mainTopRatedMovies = <Movie>[].obs;
-  var watchListMovies = <Movie>[].obs;
+  var mainTopRatedMovies = <Actor>[].obs; // Movie
+  var watchListMovies = <Actor>[].obs; // Movie
   @override
   void onInit() async {
     isLoading.value = true;
@@ -14,11 +15,11 @@ class MoviesController extends GetxController {
     super.onInit();
   }
 
-  bool isInWatchList(Movie movie) {
+  bool isInWatchList(Actor movie) {// Movie
     return watchListMovies.any((m) => m.id == movie.id);
   }
 
-  void addToWatchList(Movie movie) {
+  void addToWatchList(Actor movie) {// Movie
     if (watchListMovies.any((m) => m.id == movie.id)) {
       watchListMovies.remove(movie);
       Get.snackbar('Success', 'removed from watch list',

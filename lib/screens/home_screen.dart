@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         separatorBuilder: (_, __) => const SizedBox(width: 24),
                         itemBuilder: (_, index) => TopRatedItem(
-                            movie: controller.mainTopRatedMovies[index],
+                            movie: controller.mainTopRatedMovies[index],// es donde se daba el error para los actores.
                             index: index + 1),
                       ),
                     )),
@@ -88,19 +88,19 @@ class HomeScreen extends StatelessWidget {
                     height: 400,
                     child: TabBarView(children: [
                       TabBuilder(
-                        future: ApiService.getCustomMovies(
+                        future: ApiService.getCustomActors(//eran el de pelis
                             'now_playing?api_key=${Api.apiKey}&language=en-US&page=1'),
                       ),
                       TabBuilder(
-                        future: ApiService.getCustomMovies(
+                        future: ApiService.getCustomActors(//eran el de pelis
                             'upcoming?api_key=${Api.apiKey}&language=en-US&page=1'),
                       ),
                       TabBuilder(
-                        future: ApiService.getCustomMovies(
+                        future: ApiService.getCustomActors(//eran el de pelis
                             'top_rated?api_key=${Api.apiKey}&language=en-US&page=1'),
                       ),
                       TabBuilder(
-                        future: ApiService.getCustomMovies(
+                        future: ApiService.getCustomActors(//eran el de pelis
                             'popular?api_key=${Api.apiKey}&language=en-US&page=1'),
                       ),
                     ]),

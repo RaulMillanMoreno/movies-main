@@ -2,6 +2,7 @@ import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movies/api/api.dart';
+import 'package:movies/models/actor.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/screens/details_screen.dart';
 import 'package:movies/widgets/index_number.dart';
@@ -13,7 +14,7 @@ class TopRatedItem extends StatelessWidget {
     required this.index,
   });
 
-  final Movie movie;
+  final Actor movie; // hay que cambiar este.
   final int index;
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class TopRatedItem extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () => Get.to(
-            DetailsScreen(movie: movie),
+            DetailsScreen(movie: movie),// este es el que da error al cambiarlo.
           ),
           child: Container(
             margin: const EdgeInsets.only(left: 12),

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:movies/api/api.dart';
 import 'package:movies/api/api_service.dart';
 import 'package:movies/controllers/movies_controller.dart';
+import 'package:movies/models/actor.dart';
 
 import 'package:movies/models/movie.dart';
 import 'package:movies/models/review.dart';
@@ -15,7 +16,7 @@ class DetailsScreen extends StatelessWidget {
     super.key,
     required this.movie,
   });
-  final Movie movie;
+  final Actor movie; // Movie
   @override
   Widget build(BuildContext context) {
     ApiService.getMovieReviews(movie.id);

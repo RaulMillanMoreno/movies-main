@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 import 'package:movies/api/api_service.dart';
+import 'package:movies/models/actor.dart';
 import 'package:movies/models/movie.dart';
 
 class ActorsController extends GetxController {
   var isLoading = false.obs;
-  var mainTopRatedMovies = <Movie>[].obs;
+  var mainTopRatedMovies = <Actor>[].obs;
   var watchListMovies = <Movie>[].obs;
   @override
   void onInit() async {

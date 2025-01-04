@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movies/models/actor.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/utils/utils.dart';
 
 class Infos extends StatelessWidget {
   const Infos({super.key, required this.movie});
-  final Movie movie;
+  final Actor movie;// Movie
   @override
   Widget build(BuildContext context) {
     return SizedBox(

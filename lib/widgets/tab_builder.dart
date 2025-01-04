@@ -1,6 +1,7 @@
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movies/models/actor.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/screens/details_screen.dart';
 
@@ -9,12 +10,12 @@ class TabBuilder extends StatelessWidget {
     required this.future,
     super.key,
   });
-  final Future<List<Movie>?> future;
+  final Future<List<Actor>?> future;// Movie
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 12.0, left: 12.0),
-      child: FutureBuilder<List<Movie>?>(
+      child: FutureBuilder<List<Actor>?>(// Movie
         future: future,
         builder: (context, snapshot) {
           if (snapshot.hasData) {

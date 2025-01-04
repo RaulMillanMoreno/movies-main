@@ -1,9 +1,10 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
+import 'package:movies/models/actor.dart';
 import 'package:movies/models/movie.dart';
 
 class Utils{
-  static String getGenres(Movie movie) {
+  static String getGenres(Actor movie) { //Movie
     List<String> genres = [];
 
     movie.genreIds.forEach((id) {

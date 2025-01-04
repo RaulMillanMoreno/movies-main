@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:movies/api/api.dart';
 import 'package:movies/controllers/bottom_navigator_controller.dart';
 import 'package:movies/controllers/search_controller.dart';
+import 'package:movies/models/actor.dart';
 import 'package:movies/models/movie.dart';
 import 'package:movies/screens/details_screen.dart';
 import 'package:movies/widgets/infos.dart';
@@ -123,7 +124,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           separatorBuilder: (_, __) =>
                               const SizedBox(height: 24),
                           itemBuilder: (_, index) {
-                            Movie movie = Get.find<SearchController1>()
+                            Actor movie = Get.find<SearchController1>()// Movie
                                 .foundedMovies[index];
                             return GestureDetector(
                               onTap: () => Get.to(DetailsScreen(movie: movie)),

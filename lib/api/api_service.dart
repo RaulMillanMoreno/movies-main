@@ -23,15 +23,15 @@ class ApiService {
     }
   }
 
-  static Future<List<Movie>?> getTopRatedActors() async {
-    List<Movie> movies = [];
+  static Future<List<Actor>?> getTopRatedActors() async {
+    List<Actor> movies = [];
     try {
       http.Response response = await http.get(Uri.parse(
           '${Api.baseUrl}movie/top_rated?api_key=${Api.apiKey}&language=en-US&page=1'));
       var res = jsonDecode(response.body);
       res['results'].skip(6).take(5).forEach(
             (m) => movies.add(
-              Movie.fromMap(m),
+              Actor.fromMap(m),
             ),
           );
       return movies;
@@ -57,6 +57,23 @@ class ApiService {
     }
   }
 
+   static Future<List<Actor>?> getCustomActors(String url) async {
+    List<Actor> movies = [];
+    try {
+      http.Response response =
+          await http.get(Uri.parse('${Api.baseUrl}movie/$url'));
+      var res = jsonDecode(response.body);
+      res['results'].take(6).forEach(
+            (m) => movies.add(
+              Actor.fromMap(m),
+            ),
+          );
+      return movies;
+    } catch (e) {
+      return null;
+    }
+  }
+
   static Future<List<Movie>?> getSearchedMovies(String query) async {
     List<Movie> movies = [];
     try {
@@ -66,6 +83,23 @@ class ApiService {
       res['results'].forEach(
         (m) => movies.add(
           Movie.fromMap(m),
+        ),
+      );
+      return movies;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<List<Actor>?> getSearchedActors(String query) async {
+    List<Actor> movies = [];
+    try {
+      http.Response response = await http.get(Uri.parse(
+          'https://api.themoviedb.org/3/search/movie?api_key=${Api.apiKey}&language=en-US&query=$query&page=1&include_adult=false'));
+      var res = jsonDecode(response.body);
+      res['results'].forEach(
+        (m) => movies.add(
+          Actor.fromMap(m),
         ),
       );
       return movies;
