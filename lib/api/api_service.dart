@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:movies/api/api.dart';
 import 'package:movies/models/movie.dart';
+import 'package:movies/models/descactor.dart';
 import 'package:movies/models/actor.dart';
 import 'package:http/http.dart' as http;
 import 'package:movies/models/review.dart';
@@ -57,6 +58,19 @@ class ApiService {
     }
   }
 
+  static Future<DescActor?> getBiographyActor(String idactor) async {
+    try {
+      http.Response response = await http.get(
+        Uri.parse('${Api.baseUrl}person/$idactor?api_key=${Api.apiKey}&language=en-US'),
+      );
+      var res = jsonDecode(response.body); // Devuelve un objeto, no una lista
+      return DescActor.fromMap(res); // Mapea directamente al modelo DescActor
+    } catch (e) {
+      return null; // Retorna null en caso de error
+    }
+  }
+
+
    static Future<List<Actor>?> getCustomActors(String url) async {
     List<Actor> movies = [];
     try {
@@ -95,7 +109,7 @@ class ApiService {
     List<Actor> movies = [];
     try {
       http.Response response = await http.get(Uri.parse(
-          'https://api.themoviedb.org/3/search/movie?api_key=${Api.apiKey}&language=en-US&query=$query&page=1&include_adult=false'));
+          'https://api.themoviedb.org/3/search/person?language=en-US&api_key=${Api.apiKey}&include_adult=false&query=$query'));
       var res = jsonDecode(response.body);
       res['results'].forEach(
         (m) => movies.add(

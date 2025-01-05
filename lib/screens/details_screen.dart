@@ -6,6 +6,7 @@ import 'package:movies/api/api.dart';
 import 'package:movies/api/api_service.dart';
 import 'package:movies/controllers/movies_controller.dart';
 import 'package:movies/models/actor.dart';
+import 'package:movies/models/descactor.dart';
 
 import 'package:movies/models/movie.dart';
 import 'package:movies/models/review.dart';
@@ -247,7 +248,6 @@ class DetailsScreen extends StatelessWidget {
                           ),
                           tabs: [
                             Tab(text: 'About Movie'),
-                            Tab(text: 'Reviews'),
                             Tab(text: 'Cast'),
                           ]),
                       SizedBox(
@@ -256,96 +256,39 @@ class DetailsScreen extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.only(top: 20),
                             padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              movie.knowdepartment,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                              ),
+                            child: FutureBuilder<DescActor?>(
+                              future: ApiService.getBiographyActor(movie.id.toString()),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return const Center(child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text(
+                                      'Error: ${snapshot.error}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(color: Colors.red),
+                                    ),
+                                  );
+                                } else if (snapshot.hasData && snapshot.data != null) {
+                                  // Mostrar la biografía
+                                  return Text(
+                                    snapshot.data!.birthday,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: Text(
+                                      'No biography available',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                          ),
-                          FutureBuilder<List<Review>?>(
-                            future: ApiService.getMovieReviews(movie.id),
-                            builder: (_, snapshot) {
-                              if (snapshot.hasData) {
-                                return snapshot.data!.isEmpty
-                                    ? const Padding(
-                                        padding: EdgeInsets.only(top: 30.0),
-                                        child: Text(
-                                          'No review',
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )
-                                    : ListView.builder(
-                                        itemCount: snapshot.data!.length,
-                                        itemBuilder: (_, index) => Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  SvgPicture.asset(
-                                                    'assets/avatar.svg',
-                                                    height: 50,
-                                                    width: 50,
-                                                    // fit: BoxFit.cover,
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 15,
-                                                  ),
-                                                  Text(
-                                                    snapshot.data![index].rating
-                                                        .toString(),
-                                                    style: const TextStyle(
-                                                      color: Color(0xff0296E5),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    snapshot
-                                                        .data![index].author,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 245,
-                                                    child: Text(snapshot
-                                                        .data![index].comment,
-                                                        style: const TextStyle(
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                            FontWeight.w400,
-                                                    ),),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                              } else {
-                                return const Center(
-                                  child: Text('Wait...'),
-                                );
-                              }
-                            },
                           ),
                           Container(),
                         ]),
