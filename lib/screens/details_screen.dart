@@ -81,35 +81,39 @@ class DetailsScreen extends StatelessWidget {
                 height: 330,
                 child: Stack(
                   children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(16),
-                        bottomRight: Radius.circular(16),
-                      ),
-                      child: Image.network(
-                        Api.imageBaseUrl + movie.originalname,
-                        width: Get.width,
-                        height: 250,
-                        fit: BoxFit.cover,
-                        loadingBuilder: (_, __, ___) {
-                          // ignore: no_wildcard_variable_uses
-                          if (___ == null) return __;
-                          return FadeShimmer(
-                            width: Get.width,
-                            height: 250,
-                            highlightColor: const Color(0xff22272f),
-                            baseColor: const Color(0xff20252d),
-                          );
-                        },
-                        errorBuilder: (_, __, ___) => const Align(
-                          alignment: Alignment.center,
-                          child: Icon(
-                            Icons.broken_image,
-                            size: 250,
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(16),
+                          bottomRight: Radius.circular(16),
+                        ),
+                        child: SizedBox.expand(  // Esto hará que la imagen ocupe todo el ancho disponible
+                          child: FittedBox(
+                            fit: BoxFit.cover,  // Asegura que la imagen cubra el área sin distorsionar
+                            child: Image.network(
+                              'https://image.tmdb.org/t/p/w500${movie.profilePath}',
+                              loadingBuilder: (_, __, ___) {
+                                // ignore: no_wildcard_variable_uses
+                                if (___ == null) return __;
+                                return FadeShimmer(
+                                  width: Get.width,
+                                  height: 250,
+                                  highlightColor: const Color(0xff22272f),
+                                  baseColor: const Color(0xff20252d),
+                                );
+                              },
+                              errorBuilder: (_, __, ___) => const Align(
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.broken_image,
+                                  size: 250,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ),                    
                     Container(
                       margin: const EdgeInsets.only(left: 30),
                       child: Align(
@@ -172,9 +176,9 @@ class DetailsScreen extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              movie.gender == 0.0
-                                  ? 'N/A'
-                                  : movie.gender.toString(),
+                              movie.popularity == 0.0// aqui
+                                ? 'No data aviable'
+                                : movie.popularity.toString(),
                               style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFFFF8700),
@@ -203,11 +207,42 @@ class DetailsScreen extends StatelessWidget {
                           const SizedBox(
                             width: 5,
                           ),
-                          Text(
-                            movie.gender.toString(),//.split('-')[0],
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 10,
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: FutureBuilder<DescActor?>(
+                              future: ApiService.getBiographyActor(movie.id.toString()),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return const Center(child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text(
+                                      'Error: ${snapshot.error}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(color: Colors.red),
+                                    ),
+                                  );
+                                } else if (snapshot.hasData && snapshot.data != null) {
+                                  // Mostrar la biografía
+                                  return Text(
+                                    snapshot.data?.birthday != null
+                                      ? snapshot.data!.popularity.toString()
+                                      : 'No birthday aviable',
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 10,
+                                    ),
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: Text(
+                                      'No birthday aviable (ERROR)',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                           ),
                         ],
@@ -247,8 +282,8 @@ class DetailsScreen extends StatelessWidget {
                             0xFF3A3F47,
                           ),
                           tabs: [
-                            Tab(text: 'About Movie'),
-                            Tab(text: 'Cast'),
+                            Tab(text: 'About Actors'),
+                            Tab(text: 'Movies'),
                           ]),
                       SizedBox(
                         height: 400,
@@ -271,18 +306,22 @@ class DetailsScreen extends StatelessWidget {
                                   );
                                 } else if (snapshot.hasData && snapshot.data != null) {
                                   // Mostrar la biografía
-                                  return Text(
-                                    snapshot.data!.birthday,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w200,
+                                  return SingleChildScrollView(
+                                    child: Text(
+                                    snapshot.data?.biography != null && snapshot.data?.biography != ""
+                                        ? snapshot.data!.biography
+                                        : 'No biography aviable',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w200,
+                                      ),
                                     ),
-                                  );
+                                  );                                  
                                 } else {
                                   return const Center(
                                     child: Text(
-                                      'No biography available',
+                                      'No biography available (ERROR)',
                                       textAlign: TextAlign.center,
                                     ),
                                   );
