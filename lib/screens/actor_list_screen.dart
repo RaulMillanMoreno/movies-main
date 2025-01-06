@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movies/api/api.dart';
 import 'package:movies/controllers/bottom_navigator_controller.dart';
-import 'package:movies/controllers/movies_controller.dart';
+import 'package:movies/controllers/actors_controller.dart';
 import 'package:movies/screens/details_screen.dart';
 import 'package:movies/widgets/infos.dart';
 
@@ -114,7 +114,7 @@ class WatchList extends StatelessWidget {
                         height: 200,
                       ),
                       Text(
-                        'No movies in your watch list',
+                        'No actors in your watch list',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w200,

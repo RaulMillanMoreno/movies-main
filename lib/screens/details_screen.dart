@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:movies/api/api_service.dart';
-import 'package:movies/controllers/movies_controller.dart';
+import 'package:movies/controllers/actors_controller.dart';
 import 'package:movies/models/actor.dart';
 import 'package:movies/models/descactor.dart';
 
