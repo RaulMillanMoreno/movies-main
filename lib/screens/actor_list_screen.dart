@@ -9,7 +9,6 @@ import 'package:movies/widgets/infos.dart';
 
 class WatchList extends StatelessWidget {
   const WatchList({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Obx(() => SingleChildScrollView(
