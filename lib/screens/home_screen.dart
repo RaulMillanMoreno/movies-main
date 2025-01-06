@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movies/api/api.dart';
 import 'package:movies/api/api_service.dart';
 import 'package:movies/controllers/bottom_navigator_controller.dart';
 import 'package:movies/controllers/actors_controller.dart';
@@ -12,7 +11,7 @@ import 'package:movies/widgets/top_rated_item.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final MoviesController controller = Get.put(MoviesController());
+  final ActorsController controller = Get.put(ActorsController());
   final SearchController1 searchController = Get.put(SearchController1());
   @override
   Widget build(BuildContext context) {
@@ -57,12 +56,12 @@ class HomeScreen extends StatelessWidget {
                   : SizedBox(
                       height: 300,
                       child: ListView.separated(
-                        itemCount: controller.mainTopRatedMovies.length,
+                        itemCount: controller.mainTopRatedActors.length,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         separatorBuilder: (_, __) => const SizedBox(width: 24),
                         itemBuilder: (_, index) => TopRatedItem(
-                            movie: controller.mainTopRatedMovies[index],// es donde se daba el error para los actores.
+                            actor: controller.mainTopRatedActors[index],// es donde se daba el error para los actores.
                             index: index + 1),
                       ),
                     )),

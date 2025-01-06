@@ -9,14 +9,13 @@ class TabBuilder extends StatelessWidget {
     required this.future,
     super.key,
   });
-  final Future<List<Actor>?> future; // Movie
+  final Future<List<Actor>?> future;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
       child: FutureBuilder<List<Actor>?>(
-        // Movie
         future: future,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -33,7 +32,7 @@ class TabBuilder extends StatelessWidget {
               itemCount: snapshot.data!.length, // Cambié a usar toda la lista
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
-                  Get.to(DetailsScreen(movie: snapshot.data![index]));
+                  Get.to(DetailsScreen(actor: snapshot.data![index]));
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),

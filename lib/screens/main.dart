@@ -67,7 +67,7 @@ class Main extends StatelessWidget {
                     ),
                   ),
                   label: 'Search',
-                  tooltip: 'Search Movies',
+                  tooltip: 'Search Actors',
                 ),
                 BottomNavigationBarItem(
                   icon: Container(

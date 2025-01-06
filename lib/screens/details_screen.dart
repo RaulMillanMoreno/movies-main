@@ -10,9 +10,9 @@ import 'package:movies/models/descactor.dart';
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({
     super.key,
-    required this.movie,
+    required this.actor,
   });
-  final Actor movie; // Movie
+  final Actor actor; // Movie
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,16 +42,16 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Tooltip(
-                      message: 'Save this movie to your watch list',
+                      message: 'Save this actor to your watch list',
                       triggerMode: TooltipTriggerMode.tap,
                       child: IconButton(
                         onPressed: () {
-                          Get.find<MoviesController>().addToActorsList(movie);
+                          Get.find<ActorsController>().addToActorsList(actor);
                         
                         },
                         icon: Obx(
                           () =>
-                              Get.find<MoviesController>().isInActorsList(movie)
+                              Get.find<ActorsController>().isInActorsList(actor)
                                   ? const Icon(
                                       Icons.bookmark,
                                       color: Colors.white,
@@ -85,7 +85,7 @@ class DetailsScreen extends StatelessWidget {
                           child: FittedBox(
                             fit: BoxFit.cover,  // Asegura que la imagen cubra el área sin distorsionar
                             child: Image.network(
-                              'https://image.tmdb.org/t/p/w500${movie.profilePath}',
+                              'https://image.tmdb.org/t/p/w500${actor.profilePath}',
                               loadingBuilder: (_, __, ___) {
                                 // ignore: no_wildcard_variable_uses
                                 if (___ == null) return __;
@@ -115,7 +115,7 @@ class DetailsScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
                           child: Image.network(
-                            'https://image.tmdb.org/t/p/w500${movie.profilePath}',
+                            'https://image.tmdb.org/t/p/w500${actor.profilePath}',
                             width: 110,
                             height: 140,
                             fit: BoxFit.cover,
@@ -145,7 +145,7 @@ class DetailsScreen extends StatelessWidget {
                       child: SizedBox(
                         width: 230,
                         child: Text(
-                          movie.name,
+                          actor.name,
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -171,9 +171,9 @@ class DetailsScreen extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              movie.popularity == 0.0// aqui
+                              actor.popularity == 0.0// aqui
                                 ? 'No data aviable'
-                                : movie.popularity.toString(),
+                                : actor.popularity.toString(),
                               style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFFFF8700),
@@ -207,7 +207,7 @@ class DetailsScreen extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: FutureBuilder<DescActor?>(
-                                  future: ApiService.getDetailyActor(movie.id.toString()),
+                                  future: ApiService.getDetailyActor(actor.id.toString()),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState == ConnectionState.waiting) {
                                       return const Center(child: CircularProgressIndicator());
@@ -249,7 +249,7 @@ class DetailsScreen extends StatelessWidget {
                               Icon(Icons.home, color: Colors.white, size: 17),
                               const SizedBox(width: 5),
                               FutureBuilder<DescActor?>(
-                                future: ApiService.getDetailyActor(movie.id.toString()),
+                                future: ApiService.getDetailyActor(actor.id.toString()),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState == ConnectionState.waiting) {
                                     return const Center(child: CircularProgressIndicator());
@@ -314,7 +314,7 @@ class DetailsScreen extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 20),
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: FutureBuilder<DescActor?>(
-                              future: ApiService.getDetailyActor(movie.id.toString()),
+                              future: ApiService.getDetailyActor(actor.id.toString()),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
                                   return const Center(child: CircularProgressIndicator());

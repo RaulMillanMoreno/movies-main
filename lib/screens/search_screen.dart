@@ -46,7 +46,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
                 const Tooltip(
-                  message: 'Search your wanted movie here !',
+                  message: 'Search your wanted actor here !',
                   triggerMode: TooltipTriggerMode.tap,
                   child: Icon(
                     Icons.info_outline,
@@ -73,7 +73,7 @@ class _SearchScreenState extends State<SearchScreen> {
             Obx(
               (() => Get.find<SearchController1>().isLoading.value
                   ? const CircularProgressIndicator()
-                  : Get.find<SearchController1>().foundedMovies.isEmpty
+                  : Get.find<SearchController1>().foundedActors.isEmpty
                       ? SizedBox(
                           width: Get.width / 1.5,
                           child: Column(
@@ -117,16 +117,16 @@ class _SearchScreenState extends State<SearchScreen> {
                         )
                       : ListView.separated(
                           itemCount:
-                              Get.find<SearchController1>().foundedMovies.length,
+                              Get.find<SearchController1>().foundedActors.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           separatorBuilder: (_, __) =>
                               const SizedBox(height: 24),
                           itemBuilder: (_, index) {
-                            Actor movie = Get.find<SearchController1>()// Movie
-                                .foundedMovies[index];
+                            Actor actor = Get.find<SearchController1>()
+                                .foundedActors[index];
                             return GestureDetector(
-                              onTap: () => Get.to(DetailsScreen(movie: movie)),
+                              onTap: () => Get.to(DetailsScreen(actor: actor)),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +134,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(16),
                                     child: Image.network(
-                                      Api.imageBaseUrl + movie.profilePath,
+                                      Api.imageBaseUrl + actor.profilePath,
                                       height: 180,
                                       width: 120,
                                       fit: BoxFit.cover,
@@ -155,7 +155,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ),
                                   const SizedBox(width: 20),
                                   Expanded( // Asegura que el texto no desborde fuera del espacio disponible
-                                    child: Infos(movie: movie),
+                                    child: Infos(actor: actor),
                                   ),
                                 ],
                               ),

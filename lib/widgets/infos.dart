@@ -5,8 +5,8 @@ import 'package:movies/models/descactor.dart';
 import 'package:movies/api/api_service.dart';
 
 class Infos extends StatelessWidget {
-  const Infos({super.key, required this.movie});
-  final Actor movie; // Cambia a Movie si es necesario
+  const Infos({super.key, required this.actor});
+  final Actor actor; 
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class Infos extends StatelessWidget {
           // TÍTULO DEL ACTOR/PELÍCULA
           Flexible(
             child: Text(
-              movie.name,
+              actor.name,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
@@ -43,9 +43,9 @@ class Infos extends StatelessWidget {
                   const SizedBox(width: 5),
                   Flexible(
                     child: Text(
-                      movie.popularity == 0.0
+                      actor.popularity == 0.0
                           ? 'N/A'
-                          : movie.popularity.toString(),
+                          : actor.popularity.toString(),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w200,
@@ -68,7 +68,7 @@ class Infos extends StatelessWidget {
                   Flexible(
                     child: Container(
                       child: FutureBuilder<DescActor?>(
-                        future: ApiService.getDetailyActor(movie.id.toString()),
+                        future: ApiService.getDetailyActor(actor.id.toString()),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return const Center(child: CircularProgressIndicator());
@@ -119,7 +119,7 @@ class Infos extends StatelessWidget {
                   Flexible(
                     child: Container(
                       child: FutureBuilder<DescActor?>(
-                        future: ApiService.getDetailyActor(movie.id.toString()),
+                        future: ApiService.getDetailyActor(actor.id.toString()),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return const Center(child: CircularProgressIndicator());

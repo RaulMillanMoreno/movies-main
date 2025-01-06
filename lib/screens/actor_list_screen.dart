@@ -48,16 +48,16 @@ class WatchList extends StatelessWidget {
                   height: 30,
                 ),
                 // Lista de películas
-                if (Get.find<MoviesController>().watchListMovies.isNotEmpty)
+                if (Get.find<ActorsController>().watchListActors.isNotEmpty)
                   Column(
-                    children: Get.find<MoviesController>()
-                        .watchListMovies
+                    children: Get.find<ActorsController>()
+                        .watchListActors
                         .map(
-                          (movie) => Column(
+                          (actor) => Column(
                             children: [
                               GestureDetector(
                                 onTap: () =>
-                                    Get.to(DetailsScreen(movie: movie)),
+                                    Get.to(DetailsScreen(actor: actor)),
                                 child: 
                                 Padding(
                                   padding: const EdgeInsets.only(left: 20),
@@ -68,7 +68,7 @@ class WatchList extends StatelessWidget {
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(16),
                                         child: Image.network(
-                                          Api.imageBaseUrl + movie.profilePath,
+                                          Api.imageBaseUrl + actor.profilePath,
                                           height: 180,
                                           width: 120,
                                           fit: BoxFit.cover,
@@ -92,7 +92,7 @@ class WatchList extends StatelessWidget {
                                       const SizedBox(width: 16),
                                       // Información de la película
                                       Expanded(
-                                        child: Infos(movie: movie),
+                                        child: Infos(actor: actor),
                                       ),
                                     ],
                                   ),                                
@@ -107,7 +107,7 @@ class WatchList extends StatelessWidget {
                         .toList(),
                   ),
                 // Si la lista está vacía
-                if (Get.find<MoviesController>().watchListMovies.isEmpty)
+                if (Get.find<ActorsController>().watchListActors.isEmpty)
                   const Column(
                     children: [
                       SizedBox(

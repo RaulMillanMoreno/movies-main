@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:movies/api/api.dart';
-import 'package:movies/models/movie.dart';
 import 'package:movies/models/descactor.dart';
 import 'package:movies/models/actor.dart';
 import 'package:http/http.dart' as http;
