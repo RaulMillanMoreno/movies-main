@@ -28,7 +28,7 @@ class ApiService {
     List<Actor> movies = [];
     try {
       http.Response response = await http.get(Uri.parse(
-          '${Api.baseUrl}trending/person/day?language=en-US&api_key=${Api.apiKey}'));// el acceso a la api en el apartado de actores.
+          '${Api.baseUrl}trending/person/week?language=en-US&api_key=${Api.apiKey}'));// el acceso a la api en el apartado de actores.
       var res = jsonDecode(response.body);
       res['results'].skip(6).take(5).forEach(
             (m) => movies.add(
@@ -58,7 +58,7 @@ class ApiService {
     }
   }
 
-  static Future<DescActor?> getBiographyActor(String idactor) async {
+  static Future<DescActor?> getDetailyActor(String idactor) async {
     try {
       http.Response response = await http.get(
         Uri.parse('${Api.baseUrl}person/$idactor?api_key=${Api.apiKey}&language=en-US'),

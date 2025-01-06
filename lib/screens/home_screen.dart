@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'What do you want to watch?',
+                'Who do you want to see?',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 24,

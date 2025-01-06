@@ -6,7 +6,7 @@ class DescActor {// se cambian las diferentes variables para que se obtengan los
   String profilePath;
   String birthday;
   String knowdepartment;
-  int gender;
+  String place_of_birth;
   double popularity;
   String biography;
   // List<int> genreIds;
@@ -16,7 +16,7 @@ class DescActor {// se cambian las diferentes variables para que se obtengan los
     required this.profilePath,
     required this.birthday,
     required this.knowdepartment, // era el overview
-    required this.gender,
+    required this.place_of_birth,
     required this.popularity,
     required this.biography,
     // required this.genreIds,
@@ -29,7 +29,7 @@ class DescActor {// se cambian las diferentes variables para que se obtengan los
       profilePath: map['profile_path'] ?? '',
       birthday: map['birthday'] ?? '',
       knowdepartment: map['known_for_department'] ?? '', // era el overview.
-      gender: map['gender'] ?? '',
+      place_of_birth: map['place_of_birth'] ?? '',
       popularity: map['popularity']?.toDouble() ?? 0.0,
       biography: map['biography'] ?? '',
       // genreIds: List<int>.from(map['genre_ids']),

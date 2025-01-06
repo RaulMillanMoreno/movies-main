@@ -2,7 +2,6 @@ import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movies/models/actor.dart';
-import 'package:movies/models/movie.dart';
 import 'package:movies/screens/details_screen.dart';
 
 class TabBuilder extends StatelessWidget {
@@ -10,25 +9,28 @@ class TabBuilder extends StatelessWidget {
     required this.future,
     super.key,
   });
-  final Future<List<Actor>?> future;// Movie
+  final Future<List<Actor>?> future; // Movie
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 12.0, left: 12.0),
-      child: FutureBuilder<List<Actor>?>(// Movie
+      padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
+      child: FutureBuilder<List<Actor>?>(
+        // Movie
         future: future,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              // shrinkWrap: true,
+              // Activar el scroll:
+              physics: const ScrollPhysics(), // Esto permite el desplazamiento
+              shrinkWrap: false, // Permitir que el GridView use el espacio disponible
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 15.0,
-                mainAxisSpacing: 15.0,
-                childAspectRatio: 0.6,
+                crossAxisCount: 3, // Número de columnas
+                crossAxisSpacing: 15.0, // Espaciado entre columnas
+                mainAxisSpacing: 15.0, // Espaciado entre filas
+                childAspectRatio: 0.6, // Relación entre ancho y alto
               ),
-              itemCount: 6,
+              itemCount: snapshot.data!.length, // Cambié a usar toda la lista
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   Get.to(DetailsScreen(movie: snapshot.data![index]));

@@ -15,23 +15,23 @@ class MoviesController extends GetxController {
     super.onInit();
   }
 
-  bool isInWatchList(Actor movie) {// Movie
+  bool isInActorsList(Actor movie) {// Movie
     return watchListMovies.any((m) => m.id == movie.id);
   }
 
-  void addToWatchList(Actor movie) {// Movie
+  void addToActorsList(Actor movie) {// Movie
     if (watchListMovies.any((m) => m.id == movie.id)) {
       watchListMovies.remove(movie);
-      Get.snackbar('Success', 'removed from watch list',
+      Get.snackbar('Success', 'removed from actors list',
           snackPosition: SnackPosition.BOTTOM,
-          animationDuration: const Duration(milliseconds: 500),
-          duration: const Duration(milliseconds: 500));
+          animationDuration: const Duration(seconds: 1),
+          duration: const Duration(seconds: 2));
     } else {
       watchListMovies.add(movie);
-      Get.snackbar('Success', 'added to watch list',
+      Get.snackbar('Success', 'added to actors list',
           snackPosition: SnackPosition.BOTTOM,
-          animationDuration: const Duration(milliseconds: 500),
-          duration: const Duration(milliseconds: 500));
+          animationDuration: const Duration(seconds: 1),
+          duration: const Duration(seconds: 2));
     }
   }
 }

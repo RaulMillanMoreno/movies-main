@@ -6,7 +6,6 @@ import 'package:movies/api/api.dart';
 import 'package:movies/controllers/bottom_navigator_controller.dart';
 import 'package:movies/controllers/search_controller.dart';
 import 'package:movies/models/actor.dart';
-import 'package:movies/models/movie.dart';
 import 'package:movies/screens/details_screen.dart';
 import 'package:movies/widgets/infos.dart';
 import 'package:movies/widgets/search_box.dart';
@@ -130,6 +129,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               onTap: () => Get.to(DetailsScreen(movie: movie)),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(16),
@@ -143,7 +143,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                         size: 120,
                                       ),
                                       loadingBuilder: (_, __, ___) {
-                                        // ignore: no_wildcard_variable_uses
                                         if (___ == null) return __;
                                         return const FadeShimmer(
                                           width: 120,
@@ -154,10 +153,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                       },
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 20,
+                                  const SizedBox(width: 20),
+                                  Expanded( // Asegura que el texto no desborde fuera del espacio disponible
+                                    child: Infos(movie: movie),
                                   ),
-                                  Infos(movie: movie)
                                 ],
                               ),
                             );

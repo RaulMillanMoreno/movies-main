@@ -2,15 +2,10 @@ import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:movies/api/api.dart';
 import 'package:movies/api/api_service.dart';
 import 'package:movies/controllers/movies_controller.dart';
 import 'package:movies/models/actor.dart';
 import 'package:movies/models/descactor.dart';
-
-import 'package:movies/models/movie.dart';
-import 'package:movies/models/review.dart';
-import 'package:movies/utils/utils.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({
@@ -20,7 +15,6 @@ class DetailsScreen extends StatelessWidget {
   final Actor movie; // Movie
   @override
   Widget build(BuildContext context) {
-    ApiService.getMovieReviews(movie.id);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -52,12 +46,12 @@ class DetailsScreen extends StatelessWidget {
                       triggerMode: TooltipTriggerMode.tap,
                       child: IconButton(
                         onPressed: () {
-                          Get.find<MoviesController>().addToWatchList(movie);
+                          Get.find<MoviesController>().addToActorsList(movie);
                         
                         },
                         icon: Obx(
                           () =>
-                              Get.find<MoviesController>().isInWatchList(movie)
+                              Get.find<MoviesController>().isInActorsList(movie)
                                   ? const Icon(
                                       Icons.bookmark,
                                       color: Colors.white,
@@ -155,6 +149,7 @@ class DetailsScreen extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
+                            color: Colors.grey
                           ),
                         ),
                       ),
@@ -196,76 +191,103 @@ class DetailsScreen extends StatelessWidget {
               ),
               Opacity(
                 opacity: .6,
-                child: SizedBox(
-                  width: Get.width / 1.3,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return SizedBox(
+                      width: constraints.maxWidth * 0.9, // Ajustar el ancho según el tamaño de la ventana
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SvgPicture.asset('assets/calender.svg'),
-                          const SizedBox(
-                            width: 5,
+                          Row(
+                            children: [
+                              SvgPicture.asset('assets/calender.svg'),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: FutureBuilder<DescActor?>(
+                                  future: ApiService.getDetailyActor(movie.id.toString()),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                      return const Center(child: CircularProgressIndicator());
+                                    } else if (snapshot.hasError) {
+                                      return Center(
+                                        child: Text(
+                                          'Error: ${snapshot.error}',
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(color: Colors.red),
+                                        ),
+                                      );
+                                    } else if (snapshot.hasData && snapshot.data != null) {
+                                      return Text(
+                                        snapshot.data?.birthday != null && snapshot.data?.birthday != "" 
+                                          ? snapshot.data!.birthday.toString()
+                                          : 'No birthday available',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 10,
+                                        ),
+                                      );
+                                    } else {
+                                      return const Center(
+                                        child: Text(
+                                          'No birthday available (ERROR)',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: FutureBuilder<DescActor?>(
-                              future: ApiService.getBiographyActor(movie.id.toString()),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return const Center(child: CircularProgressIndicator());
-                                } else if (snapshot.hasError) {
-                                  return Center(
-                                    child: Text(
-                                      'Error: ${snapshot.error}',
+                          const Text('|'),
+                          Row(
+                            children: [
+                              Icon(Icons.home, color: Colors.white, size: 17),
+                              const SizedBox(width: 5),
+                              FutureBuilder<DescActor?>(
+                                future: ApiService.getDetailyActor(movie.id.toString()),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return const Center(child: CircularProgressIndicator());
+                                  } else if (snapshot.hasError) {
+                                    return Center(
+                                      child: Text(
+                                        'Error: ${snapshot.error}',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(color: Colors.red),
+                                      ),
+                                    );
+                                  } else if (snapshot.hasData && snapshot.data != null) {
+                                    return Text(
+                                      snapshot.data?.place_of_birth != null && snapshot.data?.place_of_birth != ""
+                                        ? snapshot.data!.place_of_birth.toString()
+                                        : 'No place of birth available',
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(color: Colors.red),
-                                    ),
-                                  );
-                                } else if (snapshot.hasData && snapshot.data != null) {
-                                  // Mostrar la biografía
-                                  return Text(
-                                    snapshot.data?.birthday != null
-                                      ? snapshot.data!.popularity.toString()
-                                      : 'No birthday aviable',
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 10,
-                                    ),
-                                  );
-                                } else {
-                                  return const Center(
-                                    child: Text(
-                                      'No birthday aviable (ERROR)',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  );
-                                }
-                              },
-                            ),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 10,
+                                      ),
+                                    );
+                                  } else {
+                                    return const Center(
+                                      child: Text(
+                                        'No place of birth available (ERROR)',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      const Text('|'),
-                      Row(
-                        children: [
-                          SvgPicture.asset('assets/Ticket.svg'),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            // Utils.getGenres(movie),
-                            "esto es la parte de los utils",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
               Padding(
@@ -292,7 +314,7 @@ class DetailsScreen extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 20),
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: FutureBuilder<DescActor?>(
-                              future: ApiService.getBiographyActor(movie.id.toString()),
+                              future: ApiService.getDetailyActor(movie.id.toString()),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
                                   return const Center(child: CircularProgressIndicator());
@@ -305,7 +327,6 @@ class DetailsScreen extends StatelessWidget {
                                     ),
                                   );
                                 } else if (snapshot.hasData && snapshot.data != null) {
-                                  // Mostrar la biografía
                                   return SingleChildScrollView(
                                     child: Text(
                                     snapshot.data?.biography != null && snapshot.data?.biography != ""

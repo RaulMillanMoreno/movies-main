@@ -26,7 +26,7 @@ class Actor {// se cambian las diferentes variables para que se obtengan los dat
       name: map['name'] ?? '',
       profilePath: map['profile_path'] ?? '',
       originalname: map['original_name'] ?? '',
-      knowdepartment: map['known_for_department'] ?? '', // era el overview.
+      knowdepartment: map['known_for_department'] ?? '',
       gender: map['gender'] ?? '',
       popularity: map['popularity']?.toDouble() ?? 0.0,
       // genreIds: List<int>.from(map['genre_ids']),
