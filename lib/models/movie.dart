@@ -1,14 +1,17 @@
 import 'dart:convert';
 
 class Movie {
-  int id;
-  String title;
-  String posterPath;
-  String backdropPath;
-  String overview;
+  // Variables que contienen la información básica de la película
+  int id; 
+  String title; 
+  String posterPath; // Ruta de la imagen del cartel (poster) de la película
+  String backdropPath; // Ruta de la imagen de fondo de la película
+  String overview; 
   String releaseDate;
-  double voteAverage;
-  List<int> genreIds;
+  double voteAverage; // Promedio de votos de la película
+  List<int> genreIds; // Lista de géneros asociados a la película
+
+  // Constructor para inicializar los datos de la película
   Movie({
     required this.id,
     required this.title,
@@ -20,9 +23,10 @@ class Movie {
     required this.genreIds,
   });
 
+  // Método para crear un objeto Movie desde un mapa (ej. JSON)
   factory Movie.fromMap(Map<String, dynamic> map) {
     return Movie(
-      id: map['id'] as int,
+      id: map['id'] as int, 
       title: map['title'] ?? '',
       posterPath: map['poster_path'] ?? '',
       backdropPath: map['backdrop_path'] ?? '',
@@ -33,5 +37,6 @@ class Movie {
     );
   }
 
+  // Método para crear un objeto Movie desde una cadena JSON
   factory Movie.fromJson(String source) => Movie.fromMap(json.decode(source));
 }
