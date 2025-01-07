@@ -24,7 +24,7 @@ class ApiService {
     }
   }
 
-  static Future<DescActor?> getDetailyActor(String idactor) async {
+  static Future<DescActor?> getDetailActor(String idactor) async {
     try {
       http.Response response = await http.get(
         Uri.parse('${Api.baseUrl}person/$idactor?api_key=${Api.apiKey}&language=en-US'),

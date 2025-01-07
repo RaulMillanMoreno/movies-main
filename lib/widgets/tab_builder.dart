@@ -46,12 +46,11 @@ class TabBuilder extends StatelessWidget {
                       size: 180,
                     ),
                     loadingBuilder: (_, __, ___) {
-                      // ignore: no_wildcard_variable_uses
                       if (___ == null) return __;
                       return const FadeShimmer(
                         width: 180,
                         height: 250,
-                        highlightColor: Color.fromARGB(255, 238, 0, 0),
+                        highlightColor: Color(0xff20252d),
                         baseColor: Color(0xff20252d),
                       );
                     },

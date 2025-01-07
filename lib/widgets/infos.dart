@@ -68,7 +68,7 @@ class Infos extends StatelessWidget {
                   Flexible(
                     child: Container(
                       child: FutureBuilder<DescActor?>(
-                        future: ApiService.getDetailyActor(actor.id.toString()),
+                        future: ApiService.getDetailActor(actor.id.toString()),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return const Center(child: CircularProgressIndicator());
@@ -119,7 +119,7 @@ class Infos extends StatelessWidget {
                   Flexible(
                     child: Container(
                       child: FutureBuilder<DescActor?>(
-                        future: ApiService.getDetailyActor(actor.id.toString()),
+                        future: ApiService.getDetailActor(actor.id.toString()),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return const Center(child: CircularProgressIndicator());

@@ -10,6 +10,7 @@ import 'package:movies/screens/details_screen.dart';
 import 'package:movies/widgets/infos.dart';
 import 'package:movies/widgets/search_box.dart';
 
+// Pantalla de búsqueda de actores.
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -24,12 +25,12 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 34),
         child: Column(
-          children: [
-            Row(
+          children: [            
+            Row( // Encabezado con opciones de navegación y título.
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                IconButton(
+              children: [                
+                IconButton(// Botón para volver al inicio.
                   tooltip: 'Back to home',
                   onPressed: () =>
                       Get.find<BottomNavigatorController>().setIndex(0),
@@ -37,15 +38,15 @@ class _SearchScreenState extends State<SearchScreen> {
                     Icons.arrow_back_ios,
                     color: Colors.white,
                   ),
-                ),
-                const Text(
+                ),                
+                const Text(// Título de la pantalla.
                   'Search',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 24,
                   ),
-                ),
-                const Tooltip(
+                ),                
+                const Tooltip(// Tooltip de información.
                   message: 'Search your wanted actor here !',
                   triggerMode: TooltipTriggerMode.tap,
                   child: Icon(
@@ -57,9 +58,9 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             const SizedBox(
               height: 40,
-            ),
-            SearchBox(
-              onSumbit: () {
+            ),            
+            SearchBox(// Caja de búsqueda personalizada.
+              onSumbit: () {// Realiza la búsqueda usando el controlador.                
                 String search =
                     Get.find<SearchController1>().searchController.text;
                 Get.find<SearchController1>().searchController.text = '';
@@ -69,12 +70,12 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             const SizedBox(
               height: 34,
-            ),
-            Obx(
+            ),            
+            Obx(// Observador reactivo para mostrar resultados o estados de carga.
               (() => Get.find<SearchController1>().isLoading.value
-                  ? const CircularProgressIndicator()
+                  ? const CircularProgressIndicator() // Muestra un indicador de carga si se está buscando.
                   : Get.find<SearchController1>().foundedActors.isEmpty
-                      ? SizedBox(
+                      ? SizedBox(// Mensaje de "no encontrado" si no hay resultados.                          
                           width: Get.width / 1.5,
                           child: Column(
                             children: [
@@ -115,23 +116,23 @@ class _SearchScreenState extends State<SearchScreen> {
                             ],
                           ),
                         )
-                      : ListView.separated(
+                      : ListView.separated(// Lista de actores encontrados.                          
                           itemCount:
                               Get.find<SearchController1>().foundedActors.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           separatorBuilder: (_, __) =>
                               const SizedBox(height: 24),
-                          itemBuilder: (_, index) {
-                            Actor actor = Get.find<SearchController1>()
+                          itemBuilder: (_, index) {                            
+                            Actor actor = Get.find<SearchController1>()// Obtiene el actor actual para mostrarlo.
                                 .foundedActors[index];
                             return GestureDetector(
                               onTap: () => Get.to(DetailsScreen(actor: actor)),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
+                                children: [                                  
+                                  ClipRRect(// Imagen del actor con placeholder en caso de error o carga.
                                     borderRadius: BorderRadius.circular(16),
                                     child: Image.network(
                                       Api.imageBaseUrl + actor.profilePath,
@@ -153,8 +154,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                       },
                                     ),
                                   ),
-                                  const SizedBox(width: 20),
-                                  Expanded( // Asegura que el texto no desborde fuera del espacio disponible
+                                  const SizedBox(width: 20),                                  
+                                  Expanded(// Información adicional del actor.
                                     child: Infos(actor: actor),
                                   ),
                                 ],

@@ -12,7 +12,7 @@ class DetailsScreen extends StatelessWidget {
     super.key,
     required this.actor,
   });
-  final Actor actor; // Movie
+  final Actor actor; 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -207,7 +207,7 @@ class DetailsScreen extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: FutureBuilder<DescActor?>(
-                                  future: ApiService.getDetailyActor(actor.id.toString()),
+                                  future: ApiService.getDetailActor(actor.id.toString()),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState == ConnectionState.waiting) {
                                       return const Center(child: CircularProgressIndicator());
@@ -249,7 +249,7 @@ class DetailsScreen extends StatelessWidget {
                               Icon(Icons.home, color: Colors.white, size: 17),
                               const SizedBox(width: 5),
                               FutureBuilder<DescActor?>(
-                                future: ApiService.getDetailyActor(actor.id.toString()),
+                                future: ApiService.getDetailActor(actor.id.toString()),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState == ConnectionState.waiting) {
                                     return const Center(child: CircularProgressIndicator());
@@ -314,7 +314,7 @@ class DetailsScreen extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 20),
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: FutureBuilder<DescActor?>(
-                              future: ApiService.getDetailyActor(actor.id.toString()),
+                              future: ApiService.getDetailActor(actor.id.toString()),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
                                   return const Center(child: CircularProgressIndicator());

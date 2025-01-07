@@ -24,13 +24,13 @@ class ActorsController extends GetxController {
       Get.snackbar('Success', 'removed from actors list',
           snackPosition: SnackPosition.BOTTOM,
           animationDuration: const Duration(seconds: 1),
-          duration: const Duration(seconds: 2));
+          duration: const Duration(seconds: 1));
     } else {
       watchListActors.add(actor);
       Get.snackbar('Success', 'added to actors list',
           snackPosition: SnackPosition.BOTTOM,
           animationDuration: const Duration(seconds: 1),
-          duration: const Duration(seconds: 2));
+          duration: const Duration(seconds: 1));
     }
   }
 }
