@@ -9,38 +9,40 @@ import 'package:movies/widgets/index_number.dart';
 class TopRatedItem extends StatelessWidget {
   const TopRatedItem({
     super.key,
-    required this.actor,
-    required this.index,
+    required this.actor,  // Recibe el actor para mostrar en el widget.
+    required this.index,  // Recibe el índice para mostrar la posición del actor.
   });
 
-  final Actor actor; // hay que cambiar este.
-  final int index;
+  final Actor actor; // Declaración de actor de tipo 'Actor'.
+  final int index;    // Declaración de 'index' para identificar la posición del actor.
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // GestureDetector se usa para detectar el toque en el widget.
         GestureDetector(
           onTap: () => Get.to(
-            DetailsScreen(actor: actor),// este es el que da error al cambiarlo.
+            DetailsScreen(actor: actor), // Navega a la pantalla de detalles del actor.
           ),
           child: Container(
             margin: const EdgeInsets.only(left: 12),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.network(
-                Api.imageBaseUrl + actor.profilePath,
+                Api.imageBaseUrl + actor.profilePath, // Carga la imagen del actor usando la URL base y el perfil del actor.
                 fit: BoxFit.cover,
-                height: 250,
-                width: 180,
+                height: 250, 
+                width: 180, 
                 errorBuilder: (_, __, ___) => const Icon(
-                  Icons.broken_image,
+                  Icons.person_off, // Si hay un error cargando la imagen, muestra este ícono.
                   size: 180,
                 ),
                 loadingBuilder: (_, __, ___) {
-                  // ignore: no_wildcard_variable_uses
-                  if (___ == null) return __;
+                  // Si la imagen está cargando, muestra un shimmer.
+                  if (___ == null) return __; // Imagen cargada, muestra la imagen.
                   return const FadeShimmer(
-                    width: 180,
+                    width: 180, 
                     height: 250,
                     highlightColor: Color(0xff22272f),
                     baseColor: Color(0xff20252d),
@@ -50,9 +52,10 @@ class TopRatedItem extends StatelessWidget {
             ),
           ),
         ),
+        // Align se usa para alinear el número de índice en la parte inferior izquierda.
         Align(
           alignment: Alignment.bottomLeft,
-          child: IndexNumber(number: index),
+          child: IndexNumber(number: index), // Muestra el número de índice sobre la imagen.
         )
       ],
     );

@@ -73,7 +73,7 @@ class WatchList extends StatelessWidget {
                                           fit: BoxFit.cover, // Ajustar la imagen al contenedor
                                           errorBuilder: (_, __, ___) =>
                                               const Icon(
-                                            Icons.broken_image, // Ícono si la imagen no se carga
+                                            Icons.person_off, // Ícono si la imagen no se carga
                                             size: 180,
                                           ),
                                           loadingBuilder: (_, __, ___) {

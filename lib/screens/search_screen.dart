@@ -140,7 +140,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       width: 120,
                                       fit: BoxFit.cover,
                                       errorBuilder: (_, __, ___) => const Icon(
-                                        Icons.broken_image,
+                                        Icons.person_off,
                                         size: 120,
                                       ),
                                       loadingBuilder: (_, __, ___) {

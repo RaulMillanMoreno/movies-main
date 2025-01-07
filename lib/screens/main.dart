@@ -5,16 +5,20 @@ import 'package:movies/controllers/bottom_navigator_controller.dart';
 
 class Main extends StatelessWidget {
   Main({super.key});
+  // Instancia del controlador de la barra de navegación
   final BottomNavigatorController controller = Get.put(BottomNavigatorController());
+
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => GestureDetector(
         onTap: () {
+          // Desenfocar el foco cuando se toca fuera de los campos de texto
           FocusScope.of(context).unfocus();
         },
         child: Scaffold(
           body: SafeArea(
+            // Muestra la pantalla actual según el índice
             child: IndexedStack(
               index: controller.index.value,
               children: Get.find<BottomNavigatorController>().screens,
@@ -31,15 +35,17 @@ class Main extends StatelessWidget {
               ),
             ),
             child: BottomNavigationBar(
-              currentIndex: controller.index.value,
+              currentIndex: controller.index.value, // Ítem seleccionado actualmente
               onTap: (index) =>
+                  // Cambia el índice del controlador para navegar entre pantallas
                   Get.find<BottomNavigatorController>().setIndex(index),
-              backgroundColor: const Color(0xFF242A32),
+              backgroundColor: const Color(0xFF242A32), 
               selectedItemColor: const Color(0xFF0296E5),
-              unselectedItemColor: const Color(0xFF67686D),
-              selectedFontSize: 12,
-              unselectedFontSize: 12,
+              unselectedItemColor: const Color(0xFF67686D), 
+              selectedFontSize: 12, 
+              unselectedFontSize: 12, 
               items: [
+                // Primer ítem (Home)
                 BottomNavigationBarItem(
                   icon: Container(
                     margin: const EdgeInsets.only(bottom: 6),
@@ -48,12 +54,13 @@ class Main extends StatelessWidget {
                       height: 21,
                       width: 21,
                       color: controller.index.value == 0
-                          ? const Color(0xFF0296E5)
-                          : const Color(0xFF67686D),
+                          ? const Color(0xFF0296E5) 
+                          : const Color(0xFF67686D), 
                     ),
                   ),
                   label: 'Home',
                 ),
+                // Segundo ítem (Search)
                 BottomNavigationBarItem(
                   icon: Container(
                     margin: const EdgeInsets.only(bottom: 6),
@@ -67,8 +74,9 @@ class Main extends StatelessWidget {
                     ),
                   ),
                   label: 'Search',
-                  tooltip: 'Search Actors',
+                  tooltip: 'Search Actors', // Tooltip que aparece al pasar el cursor
                 ),
+                // Tercer ítem (Save/Actors list)
                 BottomNavigationBarItem(
                   icon: Container(
                     margin: const EdgeInsets.only(bottom: 6),
@@ -82,7 +90,7 @@ class Main extends StatelessWidget {
                     ),
                   ),
                   label: 'Actors list',
-                  tooltip: 'Your ActorsList',
+                  tooltip: 'Your ActorsList', // Tooltip para este ítem
                 ),
               ],
             ),
