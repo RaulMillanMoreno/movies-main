@@ -146,14 +146,17 @@ class DetailsScreen extends StatelessWidget {
                       left: 155,
                       child: SizedBox(
                         width: 230,
-                        child: Text(
-                          actor.name, // Nombre del actor
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey
+                        child: Container(// container con fondo blanco
+                          color: Colors.white,
+                          child: Text(
+                            actor.name, // Nombre del actor
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
+                        )                        
                       ),
                     ),
                     // Información sobre la popularidad
